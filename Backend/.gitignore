@@ -1,0 +1,42 @@
+### Node.js dependencies ###
+node_modules/
+npm-debug.log
+yarn-error.log
+
+### Environment variables ###
+.env
+
+### Logs ###
+logs/
+*.log
+
+### Build files ###
+build/
+dist/
+
+### Editor specific files ###
+.vscode/
+.idea/
+.DS_Store
+
+### Miscellaneous ###
+*.bak
+*.swp
+
+### MongoDB data ###
+dump/
+
+### Coverage reports ###
+coverage/
+
+### React build files ###
+frontend/node_modules/
+frontend/build/
+
+### Server specific files ###
+server/node_modules/
+server/dist/
+
+### Debugging ###
+*.log*
+*.out
