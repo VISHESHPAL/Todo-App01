@@ -1,11 +1,25 @@
 import React from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import Home from './components/Home'
+import Login from './components/Login'
+import SignUp from './components/SignUp'
+import NotFound from './components/NotFound'
+import {Toaster} from 'react-hot-toast'
 
-const App = () => {
+function App () {
+   const token = localStorage.getItem("jwt")
   return (
     <div>
-      <h1 className='text-5xl m-5 font-bold bg-red-500'>Hello Ashirwad</h1>
+      
+      <Routes>
+        <Route path='/'element={ token ? <Home/> : <Navigate to={"/login"} />}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/signup' element={<SignUp/>}/>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Toaster/>
     </div>
-  )
+  );
 }
 
 export default App

@@ -3,7 +3,8 @@ import Todo from "../model/todo.model.js";
 export const createTodo = async (req, res)=>{
     const todo =new Todo({
         text:req.body.text,
-        completed:req.body.completed
+        completed:req.body.completed,
+        user: req.user._id,     // associate todo with logged in  user 
     })
 
     try{
@@ -26,7 +27,7 @@ export const createTodo = async (req, res)=>{
 
 export const getTodos = async(req,res) =>{
     try{
-        const todos = await Todo.find()
+        const todos = await Todo.find({user: req.user._id}) // fetch todos only for logged in user 
         res.status(201)
         .json({
              message:"Todo Is Retrived  SuccessFully",
@@ -63,7 +64,13 @@ export const updateTodo = async (req,res)=>{
 }
 export const deleteTodo = async (req,res) =>{
     try{
-         await Todo.findByIdAndDelete(req.params.id)
+       const todo = await Todo.findByIdAndDelete(req.params.id)
+         if(!todo){
+            res.status(404)
+            .json({
+                message: "Todo is Not Found "
+            });
+               }
          res.status(201)
          .json({
               message:"Todo Is Deleted  SuccessFully"
@@ -74,6 +81,6 @@ export const deleteTodo = async (req,res) =>{
         res.status(400)
         .json({
            message:"Error In Deletion  the Todo"
-        })
+        }) 
     }
 }
